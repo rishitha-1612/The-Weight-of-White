@@ -219,7 +219,7 @@ function Reveal({
           onClick={onReplay}
           className="bg-primary text-primary-foreground hover:bg-primary/85 mt-10 inline-flex items-center justify-center rounded-full px-8 py-4 text-xs tracking-[0.35em] uppercase shadow-[0_0_40px_oklch(0.62_0.26_305/0.6)] transition-all hover:scale-[1.03]"
         >
-          line 'em up again
+          line em up again
         </button>
       </div>
     </div>
