@@ -118,8 +118,7 @@ export function Snort() {
       </header>
 
       <section className="relative z-10 mx-auto mt-12 w-full max-w-3xl">
-        <div className="mirror-slab relative rounded-3xl border border-border/70 p-6 sm:p-10">
-          <div className="animate-glint pointer-events-none absolute inset-y-0 left-0 w-1/3 rounded-3xl bg-[linear-gradient(90deg,transparent,oklch(1_0_0/0.14),transparent)]" />
+        <div className="relative p-6 sm:p-10">
           <div className="relative flex flex-col gap-8">
             {[0, 1, 2].map((i) => (
               <div
@@ -147,7 +146,7 @@ export function Snort() {
               >
                 <div className="absolute inset-x-0 top-1/2 h-[10px] -translate-y-1/2 rounded-full bg-foreground/5" />
                 <div
-                  className="powder-strip absolute inset-x-0 top-1/2 h-[13px] -translate-y-1/2 rounded-full transition-[clip-path] duration-150 ease-out"
+                  className="powder-strip absolute inset-x-0 top-1/2 h-[14px] -translate-y-1/2 rounded-full transition-[clip-path] duration-150 ease-out"
                   style={{
                     clipPath: `inset(0 0 0 ${Math.min(100, (progress[i] ?? 0) * 100)}% round 999px)`,
                     opacity: picked === i ? 0.15 : 1,
