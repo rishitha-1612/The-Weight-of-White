@@ -10,7 +10,7 @@ const EASTER_EGGS = [
   "This mirror remembers you.",
 ];
 
-function shuffledSugarIndex() {
+function shuffledCokeIndex() {
   return Math.floor(Math.random() * 3);
 }
 
@@ -19,7 +19,7 @@ function nextEggRound(current: number) {
 }
 
 export function Snort() {
-  const [sugarIndex, setSugarIndex] = useState(0);
+  const [cokeIndex, setCokeIndex] = useState(0);
   const [progress, setProgress] = useState<[number, number, number]>([0, 0, 0]);
   const [picked, setPicked] = useState<number | null>(null);
   const [reveal, setReveal] = useState<null | { kind: "coke" | "sugar" | "egg"; text: string }>(
@@ -33,7 +33,7 @@ export function Snort() {
 
   useEffect(() => {
     setMounted(true);
-    setSugarIndex(shuffledSugarIndex());
+    setCokeIndex(shuffledCokeIndex());
   }, []);
 
   const spawnSparkles = useCallback((x: number, y: number) => {
@@ -62,14 +62,14 @@ export function Snort() {
             text: EASTER_EGGS[Math.floor(Math.random() * EASTER_EGGS.length)] ?? "Bro ur high",
           });
           setEggAt(nextEggRound(round));
-        } else if (index === sugarIndex) {
-          setReveal({ kind: "sugar", text: "you got scammed lmao" });
-        } else {
+        } else if (index === cokeIndex) {
           setReveal({ kind: "coke", text: "go sleep now, ur high" });
+        } else {
+          setReveal({ kind: "sugar", text: "you got scammed lmao" });
         }
       }, 420);
     },
-    [picked, round, eggAt, sugarIndex],
+    [picked, round, eggAt, cokeIndex],
   );
 
   const handleMove = useCallback(
@@ -94,7 +94,7 @@ export function Snort() {
     setReveal(null);
     setPicked(null);
     setProgress([0, 0, 0]);
-    setSugarIndex(shuffledSugarIndex());
+    setCokeIndex(shuffledCokeIndex());
     setRound((r) => r + 1);
   }, []);
 
@@ -104,16 +104,16 @@ export function Snort() {
 
       <header className="relative z-10 mx-auto max-w-3xl text-center">
         <p className="font-body text-[0.7rem] tracking-[0.5em] text-muted-foreground uppercase">
-          Round {String(round).padStart(2, "0")} · East Highland
+          Round {String(round).padStart(2, "0")}, East Highland
         </p>
         <h1 className="text-glow animate-flicker font-display mt-4 text-5xl leading-[0.95] font-extrabold tracking-tight sm:text-7xl">
           Two lines lie.
           <br />
-          <span className="text-primary">One is sugar.</span>
+          <span className="text-primary">One is cocaine.</span>
         </h1>
         <p className="text-muted-foreground mx-auto mt-5 max-w-md text-sm sm:text-base">
           Swipe across a line to take it. The powder vanishes where you touch. Nothing here is a
-          pattern — it reshuffles every round.
+          pattern, it reshuffles every round.
         </p>
       </header>
 
@@ -162,7 +162,7 @@ export function Snort() {
         </div>
 
         <p className="text-muted-foreground/70 mt-6 text-center text-xs tracking-[0.3em] uppercase">
-          drag left → right
+          drag left to right
         </p>
       </section>
 
@@ -219,7 +219,7 @@ function Reveal({
           onClick={onReplay}
           className="bg-primary text-primary-foreground hover:bg-primary/85 mt-10 inline-flex items-center justify-center rounded-full px-8 py-4 text-xs tracking-[0.35em] uppercase shadow-[0_0_40px_oklch(0.62_0.26_305/0.6)] transition-all hover:scale-[1.03]"
         >
-          line 'em up again
+          line em up again
         </button>
       </div>
     </div>
