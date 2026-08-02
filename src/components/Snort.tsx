@@ -107,9 +107,9 @@ export function Snort() {
           Round {String(round).padStart(2, "0")}, East Highland
         </p>
         <h1 className="text-glow animate-flicker font-display mt-4 text-5xl leading-[0.95] font-extrabold tracking-tight sm:text-7xl">
-          Two lines lie.
+          Three white lines.
           <br />
-          <span className="text-primary">One is cocaine.</span>
+          Two promise comfort, one promises escape.
         </h1>
         <p className="text-muted-foreground mx-auto mt-5 max-w-md text-sm sm:text-base">
           Swipe across a line to take it. The powder vanishes where you touch. Nothing here is a
