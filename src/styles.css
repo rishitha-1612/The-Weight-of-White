@@ -124,10 +124,6 @@
     0 0 40px oklch(0.65 0.24 265 / 0.6);
 }
 
-@utility mirror-slab {
-  /* container is now invisible; keeps layout spacing */
-}
-
 @utility powder-strip {
   background:
     radial-gradient(ellipse 5px 2px at 12% 30%, oklch(1 0 0 / 0.98), transparent 55%),
