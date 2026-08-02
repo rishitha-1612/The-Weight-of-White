@@ -59,7 +59,7 @@ export function Snort() {
         if (isEgg) {
           setReveal({
             kind: "egg",
-            text: EASTER_EGGS[Math.floor(Math.random() * EASTER_EGGS.length)],
+            text: EASTER_EGGS[Math.floor(Math.random() * EASTER_EGGS.length)] ?? "Bro ur high",
           });
           setEggAt(nextEggRound(round));
         } else if (index === sugarIndex) {
@@ -80,7 +80,7 @@ export function Snort() {
       const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
       spawnSparkles(e.clientX - rect.left, rect.height / 2);
       setProgress((prev) => {
-        if (ratio <= prev[index]) return prev;
+        if (ratio <= (prev[index] ?? 0)) return prev;
         const next = [...prev] as [number, number, number];
         next[index] = ratio;
         if (ratio > 0.88) consume(index);
@@ -149,7 +149,7 @@ export function Snort() {
                 <div
                   className="powder-strip absolute inset-x-0 top-1/2 h-[13px] -translate-y-1/2 rounded-full transition-[clip-path] duration-150 ease-out"
                   style={{
-                    clipPath: `inset(0 0 0 ${Math.min(100, progress[i] * 100)}% round 999px)`,
+                    clipPath: `inset(0 0 0 ${Math.min(100, (progress[i] ?? 0) * 100)}% round 999px)`,
                     opacity: picked === i ? 0.15 : 1,
                   }}
                 />
