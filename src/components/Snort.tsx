@@ -99,25 +99,10 @@ export function Snort() {
   }, []);
 
   return (
-    <main className="bg-euphoria relative min-h-screen overflow-hidden px-5 py-14">
+    <main className="bg-euphoria relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-14">
       <GlitterField />
 
-      <header className="relative z-10 mx-auto max-w-3xl text-center">
-        <p className="font-body text-[0.7rem] tracking-[0.5em] text-muted-foreground uppercase">
-          Round {String(round).padStart(2, "0")}, East Highland
-        </p>
-        <h1 className="text-glow animate-flicker font-display mt-4 text-5xl leading-[0.95] font-extrabold tracking-tight sm:text-7xl">
-          Three white lines.
-          <br />
-          Two promise comfort, one promises escape.
-        </h1>
-        <p className="text-muted-foreground mx-auto mt-5 max-w-md text-sm sm:text-base">
-          Swipe across a line to take it. The powder vanishes where you touch. Nothing here is a
-          pattern, it reshuffles every round.
-        </p>
-      </header>
-
-      <section className="relative z-10 mx-auto mt-12 w-full max-w-3xl">
+      <section className="relative z-10 mx-auto w-full max-w-3xl">
         <div className="relative p-6 sm:p-10">
           <div className="relative flex flex-col gap-8">
             {[0, 1, 2].map((i) => (
@@ -152,17 +137,10 @@ export function Snort() {
                     opacity: picked === i ? 0.15 : 1,
                   }}
                 />
-                <span className="text-muted-foreground/70 group-hover:text-foreground pointer-events-none absolute -bottom-1 left-1 text-[0.6rem] tracking-[0.35em] uppercase transition-colors">
-                  line {i + 1}
-                </span>
               </div>
             ))}
           </div>
         </div>
-
-        <p className="text-muted-foreground/70 mt-6 text-center text-xs tracking-[0.3em] uppercase">
-          drag left to right
-        </p>
       </section>
 
       {mounted &&
