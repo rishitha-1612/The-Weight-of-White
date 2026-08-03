@@ -19,20 +19,17 @@ export function Landing() {
           introDone || !mounted ? "opacity-100" : "opacity-0"
         }`}
       >
-        <p className="font-body text-[0.7rem] tracking-[0.5em] text-muted-foreground uppercase">
-          East Highland, after hours
-        </p>
-        <h1 className="text-glow font-display mt-6 text-5xl leading-[0.95] font-extrabold tracking-tight sm:text-7xl">
+        <h1 className="text-glow font-display text-5xl leading-[0.95] font-extrabold tracking-tight sm:text-7xl">
           Three white lines.
-          <br />
-          Two promise comfort,
-          <br />
-          one promises escape.
         </h1>
-        <p className="text-muted-foreground mt-7 max-w-lg text-sm sm:text-base">
-          A glittering little game of nerve. Swipe a line, watch the powder vanish under your
-          touch, and find out what you picked. It reshuffles every round, so there is no pattern to
-          learn.
+
+        <p className="font-display mt-5 text-lg leading-snug font-medium tracking-tight text-white/90 sm:text-2xl">
+          Two promise comfort, one promises escape.
+        </p>
+
+        <p className="text-muted-foreground mt-6 max-w-lg text-sm sm:text-base">
+          A glittering little game of nerve. Swipe a line, watch the powder vanish under your touch,
+          and find out what you picked.
         </p>
 
         <Link
@@ -41,22 +38,6 @@ export function Landing() {
         >
           line em up
         </Link>
-
-        <div className="mt-20 grid w-full gap-6 sm:grid-cols-3">
-          {[
-            { t: "Swipe to take it", d: "The powder disappears exactly where your finger drags." },
-            { t: "No patterns", d: "The odd line out is reshuffled fresh on every single round." },
-            { t: "Strange nights", d: "Play long enough and the reveal stops making sense." },
-          ].map((c) => (
-            <div
-              key={c.t}
-              className="border-border/60 bg-card/30 rounded-2xl border p-6 text-left backdrop-blur-sm"
-            >
-              <h2 className="font-display text-base font-bold">{c.t}</h2>
-              <p className="text-muted-foreground mt-2 text-sm">{c.d}</p>
-            </div>
-          ))}
-        </div>
       </section>
     </main>
   );
