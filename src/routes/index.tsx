@@ -1,22 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Snort } from "@/components/Snort";
+import { Landing } from "@/components/Landing";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Two Lines Lie — Sugar or Not" },
+      { title: "Three White Lines — Trust Your Instincts" },
       {
         name: "description",
         content:
-          "Three glittering powder lines, one is powdered sugar. Swipe to find out which — Euphoria-coded, reshuffled every round.",
+          "Two promise comfort, one promises escape. A glittering, Euphoria-coded game of nerve that reshuffles every round.",
       },
-      { property: "og:title", content: "Two Lines Lie — Sugar or Not" },
+      { property: "og:title", content: "Three White Lines — Trust Your Instincts" },
       {
         property: "og:description",
         content:
-          "Three glittering powder lines, one is powdered sugar. Swipe to find out which — reshuffled every round.",
+          "Two promise comfort, one promises escape. A glittering game of nerve, reshuffled every round.",
       },
     ],
   }),
-  component: Snort,
+  component: Landing,
 });
