@@ -14,11 +14,40 @@ export function Landing() {
     <main className="bg-euphoria relative min-h-screen overflow-hidden">
       {mounted && !introDone && <Intro onDone={finish} />}
 
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-0 z-0 flex items-center justify-center transition-opacity duration-1000 ${
+          introDone || !mounted ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <div className="cd-halo absolute aspect-square w-[85vmin]" />
+        {[
+          { size: "34vmin", w: "2px", dur: "14s", rev: false },
+          { size: "48vmin", w: "3px", dur: "22s", rev: true },
+          { size: "62vmin", w: "5px", dur: "30s", rev: false },
+          { size: "78vmin", w: "2px", dur: "42s", rev: true },
+          { size: "96vmin", w: "6px", dur: "58s", rev: false },
+        ].map((r) => (
+          <div
+            key={r.size}
+            className={`cd-ring absolute aspect-square ${r.rev ? "cd-ring-rev" : ""}`}
+            style={
+              {
+                width: r.size,
+                "--ring-w": r.w,
+                "--ring-dur": r.dur,
+              } as React.CSSProperties
+            }
+          />
+        ))}
+      </div>
+
       <section
         className={`relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center px-6 py-24 text-center transition-opacity duration-1000 ${
           introDone || !mounted ? "opacity-100" : "opacity-0"
         }`}
       >
+
         <h1 className="text-glow font-display text-4xl leading-[0.95] font-extrabold tracking-tight whitespace-nowrap sm:text-5xl">
           Three white lines.
         </h1>
