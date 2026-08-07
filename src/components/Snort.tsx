@@ -125,9 +125,11 @@ export function Snort() {
   const [cokeIndex, setCokeIndex] = useState(0);
   const [progress, setProgress] = useState<[number, number, number]>([0, 0, 0]);
   const [picked, setPicked] = useState<number | null>(null);
-  const [reveal, setReveal] = useState<null | { kind: "coke" | "sugar" | "secret"; text: string }>(
-    null,
-  );
+  const [reveal, setReveal] = useState<null | {
+    kind: "coke" | "sugar" | "secret";
+    text: string;
+    color?: string;
+  }>(null);
   const [egg, setEgg] = useState<string | null>(null);
   const [round, setRound] = useState(1);
   const [completed, setCompleted] = useState(0);
