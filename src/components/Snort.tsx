@@ -300,7 +300,7 @@ export function Snort() {
                 }}
               >
                 <div
-                  className="powder-strip absolute inset-x-0 top-1/2 h-[11px] -translate-y-1/2 transition-[clip-path] duration-150 ease-out"
+                  className="powder-strip absolute inset-x-0 top-1/2 h-[18px] -translate-y-1/2 transition-[clip-path] duration-150 ease-out"
                   style={{
                     clipPath: `inset(0 0 0 ${Math.min(100, (progress[i] ?? 0) * 100)}%)`,
                     opacity: picked === i ? 0.12 : 1,
