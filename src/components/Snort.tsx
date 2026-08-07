@@ -5,15 +5,89 @@ type Sparkle = { id: number; x: number; y: number; dx: number; dy: number; dur: 
 
 const MESSAGES = [
   "You got scammed lmao.",
-  "Go sleep.",
+  "Better luck next timeline.",
+  "Wrong one.",
+  "Skill issue.",
+  "Bro really picked the sugar.",
+  "Congratulations. You played yourself.",
+  "You had one job.",
+  "That's embarrassing.",
+  'Reality said "no."',
+  "Not this time.",
+  "Womp womp.",
+  "The universe laughed.",
+  "Maybe trust your gut next time.",
+  "The odds weren't in your favor.",
+  "That was unfortunate.",
+  "Fate had other plans.",
+  "Better luck never.",
+  "Sugar rush, that's all.",
+  "You folded.",
+  "Nice try.",
+  "Imagine losing to powdered sugar.",
+  "Bro got baited.",
+  "You really thought.",
+  "Pack it up.",
+  "Try acting mysterious next time.",
+  "This is why we can't have nice things.",
+  "That wasn't very main character of you.",
+  "L.",
+  "Big L.",
+  "Certified clown moment.",
+  "You blinked.",
+  "NPC behavior.",
+  "Bro's intuition is cooked.",
+  "That's rough, buddy.",
+  "You chose... poorly.",
   "Wrong timeline.",
-  "You're still dreaming.",
+  "Reality shifted.",
+  "The simulation noticed.",
+  "Wake up.",
+  "Not this universe.",
+  "Reality.exe has stopped responding.",
   "The party ended three hours ago.",
-  "Reality is buffering.",
-  "Wake up?",
-  "Bro, you're seeing pixels.",
-  "This mirror remembers you.",
-  "Nothing happened. Probably.",
+  "You weren't supposed to pick that.",
+  "Time just laughed at you.",
+  "Reality is buffering...",
+  "Error 404: Luck not found.",
+  "Better luck in the next dimension.",
+  "You glitched the matrix.",
+  "The universe disagreed.",
+  "Everything feels... off.",
+];
+
+const RARE_MESSAGES = [
+  "The fourth line was the right one.",
+  "The game is playing you.",
+  "You're still dreaming.",
+  "Nobody wins forever.",
+  "The answer was obvious.",
+  "Was it?",
+  "You looked too confident.",
+  "Nice prediction.",
+  "Wrong reality.",
+  "Try again. Or don't.",
+  "It was rigged from the start.",
+  "There was never a correct choice.",
+  "Fate flipped a coin.",
+  "The house always wins.",
+  "See you in another timeline.",
+];
+
+const COKE_MESSAGE = "go sleep bro, you're high";
+
+/* every colour except white and red */
+const SCAM_COLORS = [
+  "oklch(0.72 0.26 305)",
+  "oklch(0.75 0.22 240)",
+  "oklch(0.72 0.26 350)",
+  "oklch(0.78 0.22 200)",
+  "oklch(0.8 0.22 155)",
+  "oklch(0.85 0.2 120)",
+  "oklch(0.86 0.19 95)",
+  "oklch(0.8 0.18 60)",
+  "oklch(0.7 0.24 275)",
+  "oklch(0.82 0.2 175)",
 ];
 
 const EGG_MESSAGES = [
@@ -51,9 +125,11 @@ export function Snort() {
   const [cokeIndex, setCokeIndex] = useState(0);
   const [progress, setProgress] = useState<[number, number, number]>([0, 0, 0]);
   const [picked, setPicked] = useState<number | null>(null);
-  const [reveal, setReveal] = useState<null | { kind: "coke" | "sugar" | "secret"; text: string }>(
-    null,
-  );
+  const [reveal, setReveal] = useState<null | {
+    kind: "coke" | "sugar" | "secret";
+    text: string;
+    color?: string;
+  }>(null);
   const [egg, setEgg] = useState<string | null>(null);
   const [round, setRound] = useState(1);
   const [completed, setCompleted] = useState(0);
@@ -97,10 +173,13 @@ export function Snort() {
         if (isEgg) {
           setEgg(pick(EGG_MESSAGES));
           setEggAt(nextEggRound(round));
+        } else if (index === cokeIndex) {
+          setReveal({ kind: "coke", text: COKE_MESSAGE });
         } else {
           setReveal({
-            kind: index === cokeIndex ? "coke" : "sugar",
-            text: pick(MESSAGES),
+            kind: "sugar",
+            text: Math.random() < 0.12 ? pick(RARE_MESSAGES) : pick(MESSAGES),
+            color: pick(SCAM_COLORS),
           });
         }
         setCompleted((c) => c + 1);
@@ -221,7 +300,7 @@ export function Snort() {
                 }}
               >
                 <div
-                  className="powder-strip absolute inset-x-0 top-1/2 h-[11px] -translate-y-1/2 transition-[clip-path] duration-150 ease-out"
+                  className="powder-strip absolute inset-x-0 top-1/2 h-[18px] -translate-y-1/2 transition-[clip-path] duration-150 ease-out"
                   style={{
                     clipPath: `inset(0 0 0 ${Math.min(100, (progress[i] ?? 0) * 100)}%)`,
                     opacity: picked === i ? 0.12 : 1,
@@ -265,16 +344,11 @@ function Reveal({
   label,
   onNext,
 }: {
-  reveal: { kind: "coke" | "sugar" | "secret"; text: string };
+  reveal: { kind: "coke" | "sugar" | "secret"; text: string; color?: string };
   label: string;
   onNext: () => void;
 }) {
-  const tone =
-    reveal.kind === "coke"
-      ? "text-primary"
-      : reveal.kind === "sugar"
-        ? "text-hotpink"
-        : "text-neon";
+  const isCoke = reveal.kind === "coke";
 
   return (
     <div className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center px-6 backdrop-blur-xl">
@@ -282,11 +356,21 @@ function Reveal({
         <p className="text-muted-foreground text-[0.65rem] tracking-[0.5em] uppercase">
           {reveal.kind === "secret" ? "??? " : "the reveal"}
         </p>
-        <h2
-          className={`text-glow animate-pulseglow font-display mt-6 text-4xl leading-tight font-extrabold sm:text-6xl ${tone}`}
-        >
-          {reveal.text}
-        </h2>
+        {isCoke ? (
+          <h2 className="holo-white font-display mt-6 text-4xl leading-tight font-extrabold sm:text-6xl">
+            {reveal.text}
+          </h2>
+        ) : (
+          <h2
+            className="animate-pulseglow font-display mt-6 text-4xl leading-tight font-extrabold sm:text-6xl"
+            style={{
+              color: reveal.color ?? "oklch(0.75 0.22 240)",
+              textShadow: `0 0 14px ${reveal.color ?? "oklch(0.75 0.22 240)"}, 0 0 46px ${reveal.color ?? "oklch(0.75 0.22 240)"}`,
+            }}
+          >
+            {reveal.text}
+          </h2>
+        )}
         <button
           onClick={onNext}
           className="bg-primary text-primary-foreground hover:bg-primary/85 mt-10 inline-flex items-center justify-center rounded-full px-8 py-4 text-xs tracking-[0.35em] uppercase shadow-[0_0_40px_oklch(0.62_0.26_305/0.6)] transition-all hover:scale-[1.03]"

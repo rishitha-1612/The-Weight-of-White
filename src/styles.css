@@ -126,58 +126,108 @@
 
 @utility powder-strip {
   position: relative;
-  background:
-    /* coarse grains */
-    radial-gradient(circle 1.6px at 6% 44%, oklch(1 0 0 / 1), transparent 60%),
-    radial-gradient(circle 1.2px at 14% 62%, oklch(1 0 0 / 0.9), transparent 60%),
-    radial-gradient(circle 2px at 23% 36%, oklch(1 0 0 / 1), transparent 60%),
-    radial-gradient(circle 1.1px at 31% 70%, oklch(1 0 0 / 0.85), transparent 60%),
-    radial-gradient(circle 1.8px at 41% 30%, oklch(1 0 0 / 1), transparent 60%),
-    radial-gradient(circle 1.3px at 49% 66%, oklch(1 0 0 / 0.9), transparent 60%),
-    radial-gradient(circle 2.2px at 58% 44%, oklch(1 0 0 / 1), transparent 60%),
-    radial-gradient(circle 1.1px at 67% 28%, oklch(1 0 0 / 0.85), transparent 60%),
-    radial-gradient(circle 1.7px at 76% 64%, oklch(1 0 0 / 1), transparent 60%),
-    radial-gradient(circle 1.2px at 85% 38%, oklch(1 0 0 / 0.9), transparent 60%),
-    radial-gradient(circle 1.9px at 94% 56%, oklch(1 0 0 / 1), transparent 60%),
-    /* uneven ridge body */
-      radial-gradient(ellipse 60% 120% at 18% 50%, oklch(1 0 0 / 0.95), transparent 70%),
-    radial-gradient(ellipse 55% 100% at 47% 52%, oklch(1 0 0 / 0.92), transparent 72%),
-    radial-gradient(ellipse 65% 130% at 78% 48%, oklch(1 0 0 / 0.95), transparent 70%),
+  background-image:
+    /* fine crystalline grains */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='40'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='11'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 2.6 -0.75'/%3E%3C/filter%3E%3Crect width='420' height='40' filter='url(%23g)'/%3E%3C/svg%3E"),
+    /* coarser clumps */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='40'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.35 0.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.8 -0.5'/%3E%3C/filter%3E%3Crect width='420' height='40' filter='url(%23c)'/%3E%3C/svg%3E"),
+    /* packed ridge body, uneven along its length */
+      radial-gradient(ellipse 26% 34% at 18% 56%, oklch(1 0 0 / 0.95), transparent 72%),
+    radial-gradient(ellipse 22% 28% at 44% 52%, oklch(1 0 0 / 0.88), transparent 72%),
+    radial-gradient(ellipse 28% 32% at 72% 58%, oklch(1 0 0 / 0.92), transparent 72%),
+    radial-gradient(ellipse 18% 24% at 90% 50%, oklch(1 0 0 / 0.8), transparent 74%),
     linear-gradient(
       180deg,
-      transparent 0%,
-      oklch(1 0 0 / 0.35) 22%,
-      oklch(1 0 0 / 0.95) 48%,
-      oklch(0.96 0.01 300 / 0.7) 66%,
-      transparent 92%
+      transparent 18%,
+      oklch(1 0 0 / 0.5) 44%,
+      oklch(0.98 0.01 300 / 0.75) 56%,
+      transparent 84%
     );
-  filter: blur(0.35px) contrast(1.15);
-  box-shadow:
-    0 1px 4px oklch(0 0 0 / 0.6),
-    0 0 14px oklch(1 0 0 / 0.25);
+  background-size:
+    420px 40px,
+    420px 40px,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto;
+  -webkit-mask-image: radial-gradient(
+    ellipse 52% 62% at 50% 52%,
+    #000 0%,
+    #000 62%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 52% 62% at 50% 52%,
+    #000 0%,
+    #000 62%,
+    transparent 100%
+  );
+  filter: blur(0.4px) contrast(1.45) brightness(1.45);
 
-  /* scattered loose dust around the line */
+  /* loose dust drifting around the ridge */
   &::before {
     content: "";
     position: absolute;
-    inset: -9px -6px;
+    inset: -12px -8px;
     pointer-events: none;
-    background:
-      radial-gradient(circle 1px at 4% 18%, oklch(1 0 0 / 0.75), transparent 60%),
-      radial-gradient(circle 0.8px at 11% 82%, oklch(1 0 0 / 0.6), transparent 60%),
-      radial-gradient(circle 1.2px at 19% 12%, oklch(1 0 0 / 0.7), transparent 60%),
-      radial-gradient(circle 0.9px at 27% 88%, oklch(1 0 0 / 0.55), transparent 60%),
-      radial-gradient(circle 1.1px at 36% 20%, oklch(1 0 0 / 0.7), transparent 60%),
-      radial-gradient(circle 0.7px at 44% 90%, oklch(1 0 0 / 0.5), transparent 60%),
-      radial-gradient(circle 1.3px at 53% 14%, oklch(1 0 0 / 0.7), transparent 60%),
-      radial-gradient(circle 0.9px at 62% 86%, oklch(1 0 0 / 0.55), transparent 60%),
-      radial-gradient(circle 1px at 71% 22%, oklch(1 0 0 / 0.65), transparent 60%),
-      radial-gradient(circle 0.8px at 80% 84%, oklch(1 0 0 / 0.5), transparent 60%),
-      radial-gradient(circle 1.2px at 89% 16%, oklch(1 0 0 / 0.7), transparent 60%),
-      radial-gradient(circle 0.9px at 96% 78%, oklch(1 0 0 / 0.55), transparent 60%);
-    filter: blur(0.2px);
+    opacity: 0.55;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='70'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='1' seed='9'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 3 -2.35'/%3E%3C/filter%3E%3Crect width='520' height='70' filter='url(%23d)'/%3E%3C/svg%3E");
+    -webkit-mask-image: radial-gradient(
+      ellipse 55% 55% at 50% 50%,
+      #000 0%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, #000 0%, transparent 100%);
+  }
+
+  /* soft bloom hugging the powder */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -8px -6px;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 50% 40% at 50% 50%,
+      oklch(1 0 0 / 0.22) 0%,
+      transparent 78%
+    );
+    filter: blur(5px);
   }
 }
+
+
+@utility holo-white {
+  color: oklch(0.99 0.005 300);
+  text-shadow:
+    0 0 6px oklch(1 0 0 / 0.9),
+    0 0 22px oklch(1 0 0 / 0.65),
+    0 0 60px oklch(1 0 0 / 0.4),
+    -1.5px 0 oklch(0.85 0.09 240 / 0.35),
+    1.5px 0 oklch(0.88 0.08 330 / 0.35);
+  animation: holoDrift 4.5s ease-in-out infinite;
+}
+
+@keyframes holoDrift {
+  0%,
+  100% {
+    opacity: 0.92;
+    text-shadow:
+      0 0 6px oklch(1 0 0 / 0.9),
+      0 0 22px oklch(1 0 0 / 0.6),
+      -1.5px 0 oklch(0.85 0.09 240 / 0.35),
+      1.5px 0 oklch(0.88 0.08 330 / 0.35);
+  }
+  50% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px oklch(1 0 0 / 1),
+      0 0 40px oklch(1 0 0 / 0.8),
+      -2.5px 0 oklch(0.85 0.09 240 / 0.5),
+      2.5px 0 oklch(0.88 0.08 330 / 0.5);
+  }
+}
+
 
 
 @keyframes glint {
