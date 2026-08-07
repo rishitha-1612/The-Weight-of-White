@@ -173,10 +173,13 @@ export function Snort() {
         if (isEgg) {
           setEgg(pick(EGG_MESSAGES));
           setEggAt(nextEggRound(round));
+        } else if (index === cokeIndex) {
+          setReveal({ kind: "coke", text: COKE_MESSAGE });
         } else {
           setReveal({
-            kind: index === cokeIndex ? "coke" : "sugar",
-            text: pick(MESSAGES),
+            kind: "sugar",
+            text: Math.random() < 0.12 ? pick(RARE_MESSAGES) : pick(MESSAGES),
+            color: pick(SCAM_COLORS),
           });
         }
         setCompleted((c) => c + 1);
