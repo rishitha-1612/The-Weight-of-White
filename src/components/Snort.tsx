@@ -344,16 +344,11 @@ function Reveal({
   label,
   onNext,
 }: {
-  reveal: { kind: "coke" | "sugar" | "secret"; text: string };
+  reveal: { kind: "coke" | "sugar" | "secret"; text: string; color?: string };
   label: string;
   onNext: () => void;
 }) {
-  const tone =
-    reveal.kind === "coke"
-      ? "text-primary"
-      : reveal.kind === "sugar"
-        ? "text-hotpink"
-        : "text-neon";
+  const isCoke = reveal.kind === "coke";
 
   return (
     <div className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center px-6 backdrop-blur-xl">
@@ -361,11 +356,21 @@ function Reveal({
         <p className="text-muted-foreground text-[0.65rem] tracking-[0.5em] uppercase">
           {reveal.kind === "secret" ? "??? " : "the reveal"}
         </p>
-        <h2
-          className={`text-glow animate-pulseglow font-display mt-6 text-4xl leading-tight font-extrabold sm:text-6xl ${tone}`}
-        >
-          {reveal.text}
-        </h2>
+        {isCoke ? (
+          <h2 className="holo-white font-display mt-6 text-4xl leading-tight font-extrabold sm:text-6xl">
+            {reveal.text}
+          </h2>
+        ) : (
+          <h2
+            className="animate-pulseglow font-display mt-6 text-4xl leading-tight font-extrabold sm:text-6xl"
+            style={{
+              color: reveal.color ?? "oklch(0.75 0.22 240)",
+              textShadow: `0 0 14px ${reveal.color ?? "oklch(0.75 0.22 240)"}, 0 0 46px ${reveal.color ?? "oklch(0.75 0.22 240)"}`,
+            }}
+          >
+            {reveal.text}
+          </h2>
+        )}
         <button
           onClick={onNext}
           className="bg-primary text-primary-foreground hover:bg-primary/85 mt-10 inline-flex items-center justify-center rounded-full px-8 py-4 text-xs tracking-[0.35em] uppercase shadow-[0_0_40px_oklch(0.62_0.26_305/0.6)] transition-all hover:scale-[1.03]"
