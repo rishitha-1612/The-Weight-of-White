@@ -214,15 +214,20 @@ export function Snort() {
                   }
                 }}
                 className="group relative h-14 cursor-crosshair touch-none rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                style={{
+                  transform: `rotate(${[-1.4, -0.6, -2][i]}deg)`,
+                  width: `${[96, 100, 92][i]}%`,
+                  marginLeft: `${[2, 0, 5][i]}%`,
+                }}
               >
-                <div className="absolute inset-x-0 top-1/2 h-[10px] -translate-y-1/2 rounded-full bg-foreground/5" />
                 <div
-                  className="powder-strip absolute inset-x-0 top-1/2 h-[14px] -translate-y-1/2 rounded-full transition-[clip-path] duration-150 ease-out"
+                  className="powder-strip absolute inset-x-0 top-1/2 h-[11px] -translate-y-1/2 transition-[clip-path] duration-150 ease-out"
                   style={{
-                    clipPath: `inset(0 0 0 ${Math.min(100, (progress[i] ?? 0) * 100)}% round 999px)`,
-                    opacity: picked === i ? 0.15 : 1,
+                    clipPath: `inset(0 0 0 ${Math.min(100, (progress[i] ?? 0) * 100)}%)`,
+                    opacity: picked === i ? 0.12 : 1,
                   }}
                 />
+
               </div>
             ))}
           </div>
