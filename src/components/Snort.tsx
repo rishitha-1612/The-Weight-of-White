@@ -219,7 +219,13 @@ export function Snort() {
     (text: string, opts?: { ring?: boolean; color?: string }) => {
       if (picked !== null || locked) return;
       setPicked(-1);
-      setReveal({ kind: "secret", text, ring: opts?.ring, color: opts?.color });
+      setReveal({
+        kind: "secret",
+        text,
+        ...(opts?.ring ? { ring: true } : {}),
+        ...(opts?.color ? { color: opts.color } : {}),
+      });
+
       setButtonLabel(pick(BUTTONS));
     },
     [picked, locked],
