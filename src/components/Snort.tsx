@@ -345,7 +345,7 @@ export function Snort() {
 
   return (
     <main
-      className="bg-euphoria relative flex min-h-screen touch-none items-center justify-center overflow-hidden px-5 py-14"
+      className="bg-euphoria relative flex min-h-screen touch-none select-none items-center justify-center overflow-hidden px-5 py-14"
       onPointerDown={circleDown}
       onPointerMove={circleMove}
       onPointerUp={resetCircle}
