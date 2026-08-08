@@ -159,6 +159,14 @@ export function Snort() {
   const holdTimers = useRef<Record<number, number>>({});
   const activePointers = useRef<Set<number>>(new Set());
   const [buttonLabel, setButtonLabel] = useState(BUTTONS[0] as string);
+  const circle = useRef<{
+    active: boolean;
+    start: number;
+    pts: { x: number; y: number }[];
+    angle: number;
+    prev: number | null;
+  }>({ active: false, start: 0, pts: [], angle: 0, prev: null });
+
 
   useEffect(() => {
     setMounted(true);
