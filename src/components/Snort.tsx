@@ -434,18 +434,40 @@ function Reveal({
   label,
   onNext,
 }: {
-  reveal: { kind: "coke" | "sugar" | "secret"; text: string; color?: string };
+  reveal: {
+    kind: "coke" | "sugar" | "secret";
+    text: string;
+    color?: string;
+    ring?: boolean;
+  };
   label: string;
   onNext: () => void;
 }) {
   const isCoke = reveal.kind === "coke";
+  const ringColor = reveal.color ?? "oklch(0.82 0.2 175)";
 
   return (
     <div className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center px-6 backdrop-blur-xl">
+      {reveal.ring && (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          {[0, 1, 2, 3].map((i) => (
+            <span
+              key={i}
+              className="secret-ring absolute rounded-full"
+              style={{
+                borderColor: ringColor,
+                boxShadow: `0 0 40px ${ringColor}`,
+                animationDelay: `${i * 0.45}s`,
+              }}
+            />
+          ))}
+        </div>
+      )}
       <div className="animate-in fade-in zoom-in-95 relative w-full max-w-xl text-center duration-500">
         <p className="text-muted-foreground text-[0.65rem] tracking-[0.5em] uppercase">
           {reveal.kind === "secret" ? "??? " : "the reveal"}
         </p>
+
         {isCoke ? (
           <h2 className="holo-white font-display mt-6 text-4xl leading-tight font-extrabold sm:text-6xl">
             {reveal.text}
