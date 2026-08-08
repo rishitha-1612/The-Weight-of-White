@@ -80,15 +80,15 @@ const COKE_MESSAGE = "go sleep bro, you're high";
 const SCAM_COLORS = [
   "oklch(0.72 0.26 305)",
   "oklch(0.75 0.22 240)",
-  "oklch(0.72 0.26 350)",
   "oklch(0.78 0.22 200)",
   "oklch(0.8 0.22 155)",
   "oklch(0.85 0.2 120)",
   "oklch(0.86 0.19 95)",
-  "oklch(0.8 0.18 60)",
   "oklch(0.7 0.24 275)",
   "oklch(0.82 0.2 175)",
+  "oklch(0.78 0.2 330)",
 ];
+
 
 const EGG_MESSAGES = [
   "Wrong timeline.",
