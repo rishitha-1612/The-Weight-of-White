@@ -216,14 +216,63 @@ export function Snort() {
   );
 
   const secret = useCallback(
-    (text: string) => {
+    (text: string, opts?: { ring?: boolean; color?: string }) => {
       if (picked !== null || locked) return;
       setPicked(-1);
-      setReveal({ kind: "secret", text });
+      setReveal({ kind: "secret", text, ring: opts?.ring, color: opts?.color });
       setButtonLabel(pick(BUTTONS));
     },
     [picked, locked],
   );
+
+  const resetCircle = useCallback(() => {
+    circle.current = { active: false, start: 0, pts: [], angle: 0, prev: null };
+  }, []);
+
+  const circleDown = useCallback((e: React.PointerEvent<HTMLElement>) => {
+    circle.current = {
+      active: true,
+      start: performance.now(),
+      pts: [{ x: e.clientX, y: e.clientY }],
+      angle: 0,
+      prev: null,
+    };
+  }, []);
+
+  const circleMove = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      const c = circle.current;
+      if (!c.active || picked !== null || locked) return;
+      /* hold first: ignore the first 220ms of movement */
+      if (performance.now() - c.start < 220) return;
+
+      c.pts.push({ x: e.clientX, y: e.clientY });
+      if (c.pts.length > 120) c.pts.shift();
+      if (c.pts.length < 6) return;
+
+      const cx = c.pts.reduce((s, p) => s + p.x, 0) / c.pts.length;
+      const cy = c.pts.reduce((s, p) => s + p.y, 0) / c.pts.length;
+      const r = Math.hypot(e.clientX - cx, e.clientY - cy);
+      if (r < 40) return;
+
+      const a = Math.atan2(e.clientY - cy, e.clientX - cx);
+      if (c.prev !== null) {
+        let d = a - c.prev;
+        while (d > Math.PI) d -= Math.PI * 2;
+        while (d < -Math.PI) d += Math.PI * 2;
+        c.angle += d;
+      }
+      c.prev = a;
+      spawnSparkles(e.clientX, e.clientY);
+
+      if (Math.abs(c.angle) >= Math.PI * 1.9) {
+        resetCircle();
+        secret(pick(CIRCLE_SECRETS), { ring: true, color: pick(CIRCLE_COLORS) });
+      }
+    },
+    [picked, locked, secret, spawnSparkles, resetCircle],
+  );
+
 
   const handleMove = useCallback(
     (index: number, e: React.PointerEvent<HTMLDivElement>) => {
