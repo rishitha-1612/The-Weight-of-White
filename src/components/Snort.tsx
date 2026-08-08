@@ -248,7 +248,6 @@ export function Snort() {
   const circleMove = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
       const c = circle.current;
-      console.log("mv", c.active, picked, locked);
       if (!c.active || picked !== null || locked) return;
 
       /* hold first: ignore the first 220ms of movement */
@@ -272,10 +271,9 @@ export function Snort() {
       }
       c.prev = a;
       spawnSparkles(e.clientX, e.clientY);
-      console.log("circ", c.pts.length, r.toFixed(0), c.angle.toFixed(2));
 
 
-      if (Math.abs(c.angle) >= Math.PI * 1.9) {
+      if (Math.abs(c.angle) >= Math.PI * 1.6) {
         resetCircle();
         secret(pick(CIRCLE_SECRETS), { ring: true, color: pick(CIRCLE_COLORS) });
       }
