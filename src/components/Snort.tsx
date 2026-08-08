@@ -146,7 +146,9 @@ export function Snort() {
     kind: "coke" | "sugar" | "secret";
     text: string;
     color?: string;
+    ring?: boolean;
   }>(null);
+
   const [egg, setEgg] = useState<string | null>(null);
   const [round, setRound] = useState(1);
   const [completed, setCompleted] = useState(0);
