@@ -104,7 +104,24 @@ const SECRETS = [
   "You drew a circle. It closed.",
 ];
 
+/* circle gesture easter eggs, never red */
+const CIRCLE_SECRETS = [
+  "The circle closed. So did the timeline.",
+  "You drew the fourth line.",
+  "Round and round. Nothing escapes.",
+  "The loop remembers you.",
+  "You summoned nothing. Beautifully.",
+];
+
+const CIRCLE_COLORS = [
+  "oklch(0.82 0.2 175)",
+  "oklch(0.75 0.22 240)",
+  "oklch(0.78 0.2 330)",
+  "oklch(0.85 0.2 120)",
+];
+
 const BUTTONS = ["Reset Reality", "One More Round", "Shuffle Fate", "Wake Up"];
+
 
 const ROUND_LIMIT = 20;
 
