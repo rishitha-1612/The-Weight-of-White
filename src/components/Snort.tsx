@@ -294,10 +294,10 @@ export function Snort() {
                 }}
                 className="group relative h-14 cursor-crosshair touch-none rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 style={{
-                  transform: `rotate(${[-1.4, -0.6, -2][i]}deg)`,
                   width: `${[96, 100, 92][i]}%`,
-                  marginLeft: `${[2, 0, 5][i]}%`,
+                  marginLeft: `${[2, 0, 4][i]}%`,
                 }}
+
               >
                 <div
                   className="powder-strip absolute inset-x-0 top-1/2 h-[18px] -translate-y-1/2 transition-[clip-path] duration-150 ease-out"
