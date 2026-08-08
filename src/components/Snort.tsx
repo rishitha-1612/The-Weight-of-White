@@ -248,7 +248,9 @@ export function Snort() {
   const circleMove = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
       const c = circle.current;
+      console.log("mv", c.active, picked, locked);
       if (!c.active || picked !== null || locked) return;
+
       /* hold first: ignore the first 220ms of movement */
       if (performance.now() - c.start < 220) return;
 
