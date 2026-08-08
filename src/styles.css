@@ -504,3 +504,26 @@
     opacity: 1 !important;
   }
 }
+
+/* ---- Circle gesture secret ---- */
+@keyframes secretRing {
+  0% {
+    width: 60px;
+    height: 60px;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  100% {
+    width: min(150vw, 1400px);
+    height: min(150vw, 1400px);
+    opacity: 0;
+  }
+}
+
+@utility secret-ring {
+  border-width: 2px;
+  border-style: solid;
+  animation: secretRing 2.6s ease-out infinite;
+}

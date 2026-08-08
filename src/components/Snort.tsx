@@ -104,7 +104,24 @@ const SECRETS = [
   "You drew a circle. It closed.",
 ];
 
+/* circle gesture easter eggs, never red */
+const CIRCLE_SECRETS = [
+  "The circle closed. So did the timeline.",
+  "You drew the fourth line.",
+  "Round and round. Nothing escapes.",
+  "The loop remembers you.",
+  "You summoned nothing. Beautifully.",
+];
+
+const CIRCLE_COLORS = [
+  "oklch(0.82 0.2 175)",
+  "oklch(0.75 0.22 240)",
+  "oklch(0.78 0.2 330)",
+  "oklch(0.85 0.2 120)",
+];
+
 const BUTTONS = ["Reset Reality", "One More Round", "Shuffle Fate", "Wake Up"];
+
 
 const ROUND_LIMIT = 20;
 
@@ -129,7 +146,9 @@ export function Snort() {
     kind: "coke" | "sugar" | "secret";
     text: string;
     color?: string;
+    ring?: boolean;
   }>(null);
+
   const [egg, setEgg] = useState<string | null>(null);
   const [round, setRound] = useState(1);
   const [completed, setCompleted] = useState(0);
@@ -140,6 +159,14 @@ export function Snort() {
   const holdTimers = useRef<Record<number, number>>({});
   const activePointers = useRef<Set<number>>(new Set());
   const [buttonLabel, setButtonLabel] = useState(BUTTONS[0] as string);
+  const circle = useRef<{
+    active: boolean;
+    start: number;
+    pts: { x: number; y: number }[];
+    angle: number;
+    prev: number | null;
+  }>({ active: false, start: 0, pts: [], angle: 0, prev: null });
+
 
   useEffect(() => {
     setMounted(true);
@@ -189,14 +216,71 @@ export function Snort() {
   );
 
   const secret = useCallback(
-    (text: string) => {
+    (text: string, opts?: { ring?: boolean; color?: string }) => {
       if (picked !== null || locked) return;
       setPicked(-1);
-      setReveal({ kind: "secret", text });
+      setReveal({
+        kind: "secret",
+        text,
+        ...(opts?.ring ? { ring: true } : {}),
+        ...(opts?.color ? { color: opts.color } : {}),
+      });
+
       setButtonLabel(pick(BUTTONS));
     },
     [picked, locked],
   );
+
+  const resetCircle = useCallback(() => {
+    circle.current = { active: false, start: 0, pts: [], angle: 0, prev: null };
+  }, []);
+
+  const circleDown = useCallback((e: React.PointerEvent<HTMLElement>) => {
+    circle.current = {
+      active: true,
+      start: performance.now(),
+      pts: [{ x: e.clientX, y: e.clientY }],
+      angle: 0,
+      prev: null,
+    };
+  }, []);
+
+  const circleMove = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      const c = circle.current;
+      if (!c.active || picked !== null || locked) return;
+
+      /* hold first: ignore the first 220ms of movement */
+      if (performance.now() - c.start < 220) return;
+
+      c.pts.push({ x: e.clientX, y: e.clientY });
+      if (c.pts.length > 120) c.pts.shift();
+      if (c.pts.length < 6) return;
+
+      const cx = c.pts.reduce((s, p) => s + p.x, 0) / c.pts.length;
+      const cy = c.pts.reduce((s, p) => s + p.y, 0) / c.pts.length;
+      const r = Math.hypot(e.clientX - cx, e.clientY - cy);
+      if (r < 40) return;
+
+      const a = Math.atan2(e.clientY - cy, e.clientX - cx);
+      if (c.prev !== null) {
+        let d = a - c.prev;
+        while (d > Math.PI) d -= Math.PI * 2;
+        while (d < -Math.PI) d += Math.PI * 2;
+        c.angle += d;
+      }
+      c.prev = a;
+      spawnSparkles(e.clientX, e.clientY);
+
+
+      if (Math.abs(c.angle) >= Math.PI * 1.6) {
+        resetCircle();
+        secret(pick(CIRCLE_SECRETS), { ring: true, color: pick(CIRCLE_COLORS) });
+      }
+    },
+    [picked, locked, secret, spawnSparkles, resetCircle],
+  );
+
 
   const handleMove = useCallback(
     (index: number, e: React.PointerEvent<HTMLDivElement>) => {
@@ -260,7 +344,15 @@ export function Snort() {
   }, []);
 
   return (
-    <main className="bg-euphoria relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-14">
+    <main
+      className="bg-euphoria relative flex min-h-screen touch-none select-none items-center justify-center overflow-hidden px-5 py-14"
+      onPointerDown={circleDown}
+      onPointerMove={circleMove}
+      onPointerUp={resetCircle}
+      onPointerCancel={resetCircle}
+      onPointerLeave={resetCircle}
+    >
+
       <GlitterField />
 
       <section className="relative z-10 mx-auto w-full max-w-3xl">
@@ -344,18 +436,40 @@ function Reveal({
   label,
   onNext,
 }: {
-  reveal: { kind: "coke" | "sugar" | "secret"; text: string; color?: string };
+  reveal: {
+    kind: "coke" | "sugar" | "secret";
+    text: string;
+    color?: string;
+    ring?: boolean;
+  };
   label: string;
   onNext: () => void;
 }) {
   const isCoke = reveal.kind === "coke";
+  const ringColor = reveal.color ?? "oklch(0.82 0.2 175)";
 
   return (
     <div className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center px-6 backdrop-blur-xl">
+      {reveal.ring && (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          {[0, 1, 2, 3].map((i) => (
+            <span
+              key={i}
+              className="secret-ring absolute rounded-full"
+              style={{
+                borderColor: ringColor,
+                boxShadow: `0 0 40px ${ringColor}`,
+                animationDelay: `${i * 0.45}s`,
+              }}
+            />
+          ))}
+        </div>
+      )}
       <div className="animate-in fade-in zoom-in-95 relative w-full max-w-xl text-center duration-500">
         <p className="text-muted-foreground text-[0.65rem] tracking-[0.5em] uppercase">
           {reveal.kind === "secret" ? "??? " : "the reveal"}
         </p>
+
         {isCoke ? (
           <h2 className="holo-white font-display mt-6 text-4xl leading-tight font-extrabold sm:text-6xl">
             {reveal.text}
