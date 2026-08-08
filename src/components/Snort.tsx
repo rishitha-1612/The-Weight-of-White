@@ -270,6 +270,8 @@ export function Snort() {
       }
       c.prev = a;
       spawnSparkles(e.clientX, e.clientY);
+      console.log("circ", c.pts.length, r.toFixed(0), c.angle.toFixed(2));
+
 
       if (Math.abs(c.angle) >= Math.PI * 1.9) {
         resetCircle();
