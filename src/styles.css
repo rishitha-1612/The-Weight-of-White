@@ -521,20 +521,6 @@
   }
 }
 
-/* ---- Warp tunnel background ---- */
-@keyframes tunnelSpin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@utility tunnel-spin {
-  animation: tunnelSpin 28s linear infinite;
-}
-
 /* ---- Circle gesture secret ---- */
 @keyframes secretRing {
   0% {
