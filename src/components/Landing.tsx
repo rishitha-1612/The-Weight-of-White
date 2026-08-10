@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Intro } from "./Intro";
+import { TunnelBackground } from "./TunnelBackground";
 
 export function Landing() {
   const [introDone, setIntroDone] = useState(false);
@@ -11,7 +12,9 @@ export function Landing() {
   const finish = useCallback(() => setIntroDone(true), []);
 
   return (
-    <main className="bg-euphoria relative min-h-screen overflow-hidden">
+    <main className="relative min-h-screen overflow-hidden bg-black">
+      <TunnelBackground />
+
       {mounted && !introDone && <Intro onDone={finish} />}
 
       <section
@@ -42,3 +45,4 @@ export function Landing() {
     </main>
   );
 }
+
