@@ -41,25 +41,12 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-prismaset: "LL Prismaset Five", "Syne", ui-sans-serif, system-ui;
-  --font-display: "LL Prisma Text", "Syne", ui-sans-serif, system-ui;
-  --font-body: "LL Prisma Text", "DM Sans", ui-sans-serif, system-ui;
+  --font-prismaset: "Space Grotesk", "Satoshi", ui-sans-serif, system-ui;
+  --font-display: "Satoshi", "Space Grotesk", ui-sans-serif, system-ui;
+  --font-body: "Satoshi", "Space Grotesk", ui-sans-serif, system-ui;
 }
 
-/* Lineto commercial fonts, drop the licensed files into public/fonts/ */
-@font-face {
-  font-family: "LL Prismaset Five";
-  src: url("/fonts/LLPrismasetFive.woff2") format("woff2");
-  font-weight: 100 900;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "LL Prisma Text";
-  src: url("/fonts/LLPrismaText.woff2") format("woff2");
-  font-weight: 100 900;
-  font-display: swap;
-}
+/* Space Grotesk loaded via Google Fonts, Satoshi via Fontshare in __root.tsx */
 
 :root {
   --radius: 1rem;
