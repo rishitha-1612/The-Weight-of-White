@@ -19,7 +19,7 @@ export function Landing() {
           introDone || !mounted ? "opacity-100" : "opacity-0"
         }`}
       >
-        <h1 className="text-glow font-display text-4xl leading-[0.95] font-extrabold tracking-tight whitespace-nowrap sm:text-5xl">
+        <h1 className="text-glow font-prismaset text-4xl leading-[0.95] font-extrabold tracking-tight whitespace-nowrap sm:text-5xl">
           Three white lines.
         </h1>
 
