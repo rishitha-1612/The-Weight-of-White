@@ -239,40 +239,29 @@
 @keyframes holoHallucinate {
   0%,
   100% {
-    transform: translateX(0) skewX(0deg);
+    transform: translateX(0) translateY(0) skewX(0deg);
     filter: blur(0px);
+    letter-spacing: 0em;
   }
   15% {
-    transform: translateX(-0.5px) skewX(-0.4deg);
-    text-shadow:
-      0 0 6px oklch(1 0 0 / 0.9),
-      0 0 24px oklch(1 0 0 / 0.7),
-      -2px 0 oklch(0.7 0.18 220 / 0.45),
-      2px 0 oklch(0.75 0.18 340 / 0.45);
+    transform: translateX(-0.5px) translateY(-0.5px) skewX(-0.4deg);
   }
   35% {
-    transform: translateX(0.5px) skewX(0.3deg);
-    filter: blur(0.3px);
-    text-shadow:
-      0 0 8px oklch(1 0 0 / 0.95),
-      0 0 30px oklch(1 0 0 / 0.75),
-      -1.5px 0 oklch(0.75 0.2 260 / 0.4),
-      1.5px 0 oklch(0.8 0.2 320 / 0.4);
+    transform: translateX(0.5px) translateY(0.5px) skewX(0.3deg);
+    filter: blur(0.25px);
+    letter-spacing: 0.01em;
   }
   55% {
-    transform: translateX(-0.3px) skewX(-0.2deg);
+    transform: translateX(-0.3px) translateY(-0.3px) skewX(-0.2deg);
   }
   75% {
-    transform: translateX(0.3px) skewX(0.2deg);
+    transform: translateX(0.3px) translateY(0.3px) skewX(0.2deg);
     filter: blur(0px);
-    text-shadow:
-      0 0 7px oklch(1 0 0 / 0.9),
-      0 0 26px oklch(1 0 0 / 0.7),
-      -2.2px 0 oklch(0.72 0.19 230 / 0.42),
-      2.2px 0 oklch(0.78 0.19 335 / 0.42);
+    letter-spacing: -0.005em;
   }
   90% {
-    transform: translateX(0) skewX(0deg);
+    transform: translateX(0) translateY(0) skewX(0deg);
+    letter-spacing: 0em;
   }
 }
 
