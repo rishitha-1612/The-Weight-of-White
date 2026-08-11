@@ -334,6 +334,7 @@ export function Snort() {
   }, []);
 
   const nextRound = useCallback(() => {
+    stopWhisper();
     setReveal(null);
     setEgg(null);
     setPicked(null);
@@ -343,6 +344,7 @@ export function Snort() {
   }, []);
 
   const restart = useCallback(() => {
+    stopWhisper();
     setReveal(null);
     setEgg(null);
     setPicked(null);
@@ -354,6 +356,9 @@ export function Snort() {
     setEggAt(nextEggRound(0));
     setButtonLabel(pick(BUTTONS));
   }, []);
+
+  useEffect(() => stopWhisper, []);
+
 
   return (
     <main
