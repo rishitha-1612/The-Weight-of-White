@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { drone, grainTick, noiseSwell, stopWhisper, whisper } from "@/lib/hallucination-audio";
 
 type Sparkle = { id: number; x: number; y: number; dx: number; dy: number; dur: number };
 
