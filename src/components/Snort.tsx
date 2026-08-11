@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { drone, grainTick, noiseSwell, stopWhisper, whisper } from "@/lib/hallucination-audio";
 
 type Sparkle = { id: number; x: number; y: number; dx: number; dy: number; dur: number };
 
@@ -188,26 +189,34 @@ export function Snort() {
       }));
       return [...prev.slice(-40), ...made];
     });
+    if (Math.random() < 0.35) grainTick();
   }, []);
 
   const consume = useCallback(
     (index: number) => {
       if (picked !== null || locked) return;
       setPicked(index);
+      noiseSwell({ gain: 0.045, dur: 0.9, freq: 1600 });
       const isEgg = round >= eggAt;
       window.setTimeout(() => {
         setButtonLabel(pick(BUTTONS));
         if (isEgg) {
           setEgg(pick(EGG_MESSAGES));
           setEggAt(nextEggRound(round));
+          noiseSwell({ gain: 0.07, dur: 2.6, freq: 420 });
+          drone(6);
         } else if (index === cokeIndex) {
           setReveal({ kind: "coke", text: COKE_MESSAGE });
+          drone(9);
+          noiseSwell({ gain: 0.05, dur: 3.2, freq: 700 });
+          window.setTimeout(() => whisper("go sleep bro ur high"), 700);
         } else {
           setReveal({
             kind: "sugar",
             text: Math.random() < 0.12 ? pick(RARE_MESSAGES) : pick(MESSAGES),
             color: pick(SCAM_COLORS),
           });
+          noiseSwell({ gain: 0.04, dur: 1.6, freq: 1100 });
         }
         setCompleted((c) => c + 1);
       }, 420);
@@ -225,11 +234,14 @@ export function Snort() {
         ...(opts?.ring ? { ring: true } : {}),
         ...(opts?.color ? { color: opts.color } : {}),
       });
+      drone(7);
+      noiseSwell({ gain: 0.05, dur: 2.4, freq: 520 });
 
       setButtonLabel(pick(BUTTONS));
     },
     [picked, locked],
   );
+
 
   const resetCircle = useCallback(() => {
     circle.current = { active: false, start: 0, pts: [], angle: 0, prev: null };
@@ -322,6 +334,7 @@ export function Snort() {
   }, []);
 
   const nextRound = useCallback(() => {
+    stopWhisper();
     setReveal(null);
     setEgg(null);
     setPicked(null);
@@ -331,6 +344,7 @@ export function Snort() {
   }, []);
 
   const restart = useCallback(() => {
+    stopWhisper();
     setReveal(null);
     setEgg(null);
     setPicked(null);
@@ -342,6 +356,9 @@ export function Snort() {
     setEggAt(nextEggRound(0));
     setButtonLabel(pick(BUTTONS));
   }, []);
+
+  useEffect(() => stopWhisper, []);
+
 
   return (
     <main
